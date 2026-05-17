@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, feature/*, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Lint with pylint
+      run: |
+        pylint main.py --disable=C0111 || true
+      continue-on-error: true
+    
+    - name: Check code format with black
+      run: |
+        black --check main.py test_main.py || black main.py test_main.py
+      continue-on-error: true
+    
+    - name: Run tests with pytest
+      run: |
+        pytest test_main.py -v --tb=short
+    
+    - name: Generate test report
+      if: always()
+      run: |
+        pytest test_main.py -v --tb=short > test-report.txt || true
