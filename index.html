@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Momentum Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Momentum Lab</h1>
+      <p>Plan a focused sprint, then launch.</p>
+    </header>
+
+    <section class="card" aria-labelledby="timer-heading">
+      <h2 id="timer-heading">Sprint Timer</h2>
+      <div class="timer" id="timer" role="timer" aria-live="polite">25:00</div>
+      <p class="timer-status" id="timerStatus">Ready</p>
+      <div class="controls">
+        <button id="startBtn" type="button">Start</button>
+        <button id="pauseBtn" type="button">Pause</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+      <div class="presets" role="group" aria-label="Timer presets">
+        <button type="button" data-minutes="15">15m</button>
+        <button type="button" data-minutes="25" class="active">25m</button>
+        <button type="button" data-minutes="50">50m</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="tasks-heading">
+      <h2 id="tasks-heading">Mission List</h2>
+      <form id="taskForm">
+        <input id="taskInput" type="text" placeholder="Add your next mission..." maxlength="80" required />
+        <button type="submit">Add</button>
+      </form>
+      <p class="meta" id="taskSummary">0 total · 0 done</p>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section class="card quote" aria-labelledby="quote-heading">
+      <h2 id="quote-heading">Ignition Quote</h2>
+      <p id="quoteText">Small steps create giant momentum.</p>
+      <button id="newQuoteBtn" type="button">New Quote</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
